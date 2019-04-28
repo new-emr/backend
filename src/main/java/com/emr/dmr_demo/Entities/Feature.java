@@ -1,10 +1,8 @@
 package com.emr.dmr_demo.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 public class Feature {

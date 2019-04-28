@@ -23,7 +23,7 @@ public class Controller {
         this.patientRepository = patientRepository;
     }
 
-    @PostMapping("/getAllPatient")
+    @GetMapping("/getAllPatient")
     public ResponseEntity<Iterable<Patient>> getAllPatient() {
         return new ResponseEntity<>(patientRepository.findAll(), HttpStatus.OK);
     }
