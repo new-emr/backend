@@ -4,23 +4,16 @@ import com.emr.dmr_demo.Entities.Disease;
 import com.emr.dmr_demo.Entities.Feature;
 import com.emr.dmr_demo.Entities.Patient;
 import com.emr.dmr_demo.Repositories.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
 public class Controller {
     private PatientRepository patientRepository;
 
-    @Autowired
     public Controller(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
