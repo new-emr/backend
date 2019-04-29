@@ -13,9 +13,9 @@ public class Feature {
     private FeatureType type;
     private double result;
     @ManyToOne
-    @JoinColumn(name = "patientId")
+    @JoinColumn(name = "recordId")
     @JsonIgnoreProperties("featureList")
-    private Patient patient;
+    private Record record;
 
     public Feature() {
     }
@@ -58,11 +58,11 @@ public class Feature {
         this.result = result;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Record getRecord() {
+        return record;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setRecord(Record record) {
+        this.record = record;
     }
 }

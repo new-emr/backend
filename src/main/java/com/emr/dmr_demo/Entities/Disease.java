@@ -12,9 +12,9 @@ public class Disease {
     private String name;
     private boolean isSick;
     @ManyToOne
-    @JoinColumn(name = "patientId")
+    @JoinColumn(name = "recordId")
     @JsonIgnoreProperties("diseaseList")
-    private Patient patient;
+    private Record record;
 
     public Disease() {
     }
@@ -48,11 +48,11 @@ public class Disease {
         isSick = sick;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Record getRecord() {
+        return record;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setRecord(Record record) {
+        this.record = record;
     }
 }

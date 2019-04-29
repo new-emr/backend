@@ -9,31 +9,27 @@ import java.util.List;
 @Entity
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long patientId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("patient")
-    private List<Feature> featureList;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("patient")
-    private List<Disease> diseaseList;
+    private List<Record> recordList;
 
     public Patient() {
     }
 
     public Patient(String name) {
         this.name = name;
-        this.featureList = new LinkedList<>();
-        this.diseaseList = new LinkedList<>();
+        this.recordList= new LinkedList<>();
     }
 
-    public long getPatientId() {
-        return patientId;
+    public long getId() {
+        return id;
     }
 
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -44,29 +40,16 @@ public class Patient {
         this.name = name;
     }
 
-    public List<Feature> getFeatureList() {
-        return featureList;
+    public List<Record> getRecordList() {
+        return recordList;
     }
 
-    public void setFeatureList(List<Feature> featureList) {
-        this.featureList = featureList;
+    public void setRecordList(List<Record> recordList) {
+        this.recordList = recordList;
     }
 
-    public List<Disease> getDiseaseList() {
-        return diseaseList;
-    }
-
-    public void setDiseaseList(List<Disease> diseaseList) {
-        this.diseaseList = diseaseList;
-    }
-
-    public void addFeature(Feature feature) {
-        feature.setPatient(this);
-        featureList.add(feature);
-    }
-
-    public void addDisease(Disease disease) {
-        disease.setPatient(this);
-        diseaseList.add(disease);
+    public void addRecord(Record record) {
+        recordList.add(record);
+        record.setPatient(this);
     }
 }
