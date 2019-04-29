@@ -1,8 +1,8 @@
 package com.emr.dmr_demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.domain.PageRequest;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -12,41 +12,36 @@ import java.util.List;
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
+    private Long id;
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("record")
     private List<Feature> featureList;
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("record")
     private List<Disease> diseaseList;
-    @ManyToOne
-    @JoinColumn(name = "patientId")
-    @JsonIgnoreProperties("recordList")
-    private Patient patient;
+    private String patientName;
 
-    public Record(){}
-
-    public Record(String name) {
-        this.name = name;
+    public Record() {
         this.featureList = new LinkedList<>();
         this.diseaseList = new LinkedList<>();
     }
 
-    public long getId() {
+    public void addFeature(Feature feature) {
+        featureList.add(feature);
+        feature.setRecord(this);
+    }
+
+    public void addDisease(Disease disease) {
+        diseaseList.add(disease);
+        disease.setRecord(this);
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Feature> getFeatureList() {
@@ -65,20 +60,12 @@ public class Record {
         this.diseaseList = diseaseList;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public void addFeature(Feature feature) {
-        featureList.add(feature);
-        feature.setRecord(this);
-    }
-    public void addDisease(Disease disease) {
-        diseaseList.add(disease);
-        disease.setRecord(this);
-    }
 }

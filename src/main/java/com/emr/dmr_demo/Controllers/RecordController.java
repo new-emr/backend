@@ -1,12 +1,7 @@
 package com.emr.dmr_demo.Controllers;
 
-import com.emr.dmr_demo.Entities.Disease;
-import com.emr.dmr_demo.Entities.Feature;
-import com.emr.dmr_demo.Entities.Patient;
 import com.emr.dmr_demo.Entities.Record;
-import com.emr.dmr_demo.Repositories.PatientRepository;
 import com.emr.dmr_demo.Repositories.RecordRepository;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/record")
 public class RecordController {
     private RecordRepository recordRepository;
-    private PatientRepository patientRepository;
 
     public RecordController(RecordRepository recordRepository) {
         this.recordRepository = recordRepository;
@@ -38,19 +32,10 @@ public class RecordController {
 
     @PostMapping("/add")
     public ResponseEntity<Record> add(@RequestBody Record record) {
-        Record storedRecord = recordRepository.save(new Record(record.getName()));
-        Patient patient = patientRepository.findById(record.getPatient().getId()).orElse(null);
-        if(patient != null) {
-            patient.addRecord(storedRecord);
-            patientRepository.save(patient);
-        }
-        for(Feature feature: record.getFeatureList()) {
-            storedRecord.addFeature(feature);
-        }
-        for(Disease disease: record.getDiseaseList()) {
-            storedRecord.addDisease(disease);
-        }
-        storedRecord = recordRepository.save(storedRecord);
-        return new ResponseEntity<>(storedRecord, HttpStatus.OK);
+        record.getFeatureList().forEach(feature ->
+                feature.setRecord(record));
+        record.getDiseaseList().forEach(disease ->
+                disease.setRecord(record));
+        return new ResponseEntity<>(recordRepository.save(record), HttpStatus.OK);
     }
 }

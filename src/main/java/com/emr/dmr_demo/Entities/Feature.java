@@ -1,6 +1,8 @@
 package com.emr.dmr_demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -8,30 +10,28 @@ import javax.persistence.*;
 public class Feature {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long featureId;
+    private Long id;
     private String name;
     private FeatureType type;
-    private double result;
+    private Double result;
     @ManyToOne
     @JoinColumn(name = "recordId")
     @JsonIgnoreProperties("featureList")
     private Record record;
 
-    public Feature() {
-    }
-
+    public Feature(){}
     public Feature(String name, FeatureType type, double result) {
         this.name = name;
         this.type = type;
         this.result = result;
     }
 
-    public long getFeatureId() {
-        return featureId;
+    public Long getId() {
+        return id;
     }
 
-    public void setFeatureId(long featureId) {
-        this.featureId = featureId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,11 +50,11 @@ public class Feature {
         this.type = type;
     }
 
-    public double getResult() {
+    public Double getResult() {
         return result;
     }
 
-    public void setResult(double result) {
+    public void setResult(Double result) {
         this.result = result;
     }
 
