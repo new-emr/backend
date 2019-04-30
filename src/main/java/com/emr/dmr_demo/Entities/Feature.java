@@ -1,12 +1,11 @@
 package com.emr.dmr_demo.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "features")
 public class Feature {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,5 +63,9 @@ public class Feature {
 
     public void setRecord(Record record) {
         this.record = record;
+    }
+
+    public enum FeatureType {
+        Boolean, Double
     }
 }

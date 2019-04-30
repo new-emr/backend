@@ -1,14 +1,13 @@
 package com.emr.dmr_demo.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Table(name = "records")
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

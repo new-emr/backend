@@ -1,11 +1,20 @@
 package com.emr.dmr_demo.Controllers;
 
+import com.emr.dmr_demo.Entities.Disease;
+import com.emr.dmr_demo.Entities.Feature;
 import com.emr.dmr_demo.Entities.Record;
+import com.emr.dmr_demo.Repositories.DiseaseRepository;
+import com.emr.dmr_demo.Repositories.FeatureRepository;
 import com.emr.dmr_demo.Repositories.RecordRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
@@ -13,6 +22,8 @@ import java.util.List;
 @RequestMapping("/api/record")
 public class RecordController {
     private RecordRepository recordRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     public RecordController(RecordRepository recordRepository) {
         this.recordRepository = recordRepository;
@@ -29,6 +40,13 @@ public class RecordController {
         List<Record> recordList = recordRepository.findAll();
         return new ResponseEntity<>(recordList, recordList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
+
+    @GetMapping("getByQuery")
+    public ResponseEntity<List<Record>> getByQuery(@RequestParam String query) {
+        List<Record> recordList = recordRepository.findByQuery(query);
+        return new ResponseEntity<>(recordList, recordList == null ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+    }
+
 
     @PostMapping("/add")
     public ResponseEntity<Record> add(@RequestBody Record record) {
