@@ -1,14 +1,7 @@
 package com.emr.dmr_demo.Controllers;
 
-import com.emr.dmr_demo.Entities.Disease;
-import com.emr.dmr_demo.Entities.Feature;
 import com.emr.dmr_demo.Entities.Record;
-import com.emr.dmr_demo.Repositories.DiseaseRepository;
-import com.emr.dmr_demo.Repositories.FeatureRepository;
 import com.emr.dmr_demo.Repositories.RecordRepository;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/record")
+@CrossOrigin
 public class RecordController {
     private RecordRepository recordRepository;
     @PersistenceContext
